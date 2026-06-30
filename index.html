@@ -1,1 +1,1425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Crema & Pizzolon Consulting</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    :root {
+      --navy-deep:   #0A0F1E;
+      --navy-mid:    #1B2A4A;
+      --gold:        #C8A96E;
+      --gold-light:  #E8CFA0;
+      --off-white:   #F5F4F0;
+      --text-muted:  #6B7280;
+      --white:       #FFFFFF;
+      --serif:       'Playfair Display', Georgia, serif;
+      --sans:        'Inter', system-ui, sans-serif;
+      --mono:        'Inter Tight', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--off-white);
+      color: var(--navy-deep);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ── NAVBAR ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5vw;
+      height: 60px;
+      background: rgba(10, 15, 30, 0.96);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(200, 169, 110, 0.15);
+    }
+
+    .nav-logo {
+      font-family: var(--serif);
+      font-size: 1rem;
+      color: var(--white);
+      letter-spacing: 0.04em;
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--gold); }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+
+    /* Hamburger */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+      background: none;
+      border: none;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: rgba(255,255,255,0.75);
+      transition: all 0.25s;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile drawer */
+    .nav-drawer {
+      display: none;
+      position: fixed;
+      top: 60px; left: 0; right: 0;
+      background: rgba(10,15,30,0.98);
+      border-bottom: 1px solid rgba(200,169,110,0.15);
+      padding: 1.5rem 5vw 2rem;
+      z-index: 99;
+      flex-direction: column;
+      gap: 0;
+    }
+    .nav-drawer.open { display: flex; }
+    .nav-drawer a {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      padding: 0.85rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      transition: color 0.2s;
+    }
+    .nav-drawer a:last-of-type { border-bottom: none; }
+    .nav-drawer a:hover { color: var(--gold); }
+
+    /* Language toggle */
+    .lang-toggle {
+      display: flex;
+      align-items: center;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(200,169,110,0.3);
+      border-radius: 4px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .lang-btn {
+      padding: 0.3rem 0.6rem;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      color: rgba(255,255,255,0.5);
+      transition: all 0.2s;
+    }
+    .lang-btn.active {
+      background: var(--gold);
+      color: var(--navy-deep);
+    }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100svh;
+      background: var(--navy-deep);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px 5vw 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(200,169,110,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(200,169,110,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      max-width: 820px;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-title {
+      font-family: var(--serif);
+      font-size: clamp(2.4rem, 8vw, 5.2rem);
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.1;
+    }
+
+    .hero-rule {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, var(--gold) 0%, rgba(200,169,110,0.2) 60%, transparent 100%);
+      margin: 1.5rem 0;
+    }
+
+    .hero-payoff {
+      font-family: var(--serif);
+      font-size: clamp(1rem, 3vw, 1.45rem);
+      font-weight: 400;
+      font-style: italic;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 2.25rem;
+      max-width: 560px;
+      line-height: 1.5;
+    }
+
+    .hero-cta-row {
+      display: flex;
+      gap: 0.85rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      padding: 0.9rem 1.75rem;
+      background: var(--gold);
+      color: var(--navy-deep);
+      font-weight: 600;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+    .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+    .btn-primary:active { transform: translateY(0); }
+
+    .btn-secondary {
+      display: inline-block;
+      padding: 0.9rem 1.75rem;
+      background: transparent;
+      color: rgba(255,255,255,0.75);
+      font-weight: 500;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.25);
+      transition: border-color 0.2s, color 0.2s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
+
+    .hero-scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      left: 5vw;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      color: rgba(255,255,255,0.3);
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+    .hero-scroll-hint::before {
+      content: '';
+      display: block;
+      width: 28px;
+      height: 1px;
+      background: rgba(255,255,255,0.3);
+    }
+
+    /* ── SECTION BASE ── */
+    section { padding: 5rem 5vw; }
+
+    .section-eyebrow {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.85rem;
+    }
+
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(1.85rem, 5vw, 3rem);
+      font-weight: 600;
+      color: var(--navy-deep);
+      line-height: 1.2;
+      margin-bottom: 1.25rem;
+    }
+
+    .section-title.light { color: var(--white); }
+
+    .section-body {
+      font-size: 0.95rem;
+      line-height: 1.75;
+      color: var(--text-muted);
+      max-width: 640px;
+    }
+    .section-body.light { color: rgba(255,255,255,0.6); }
+
+    /* ── ABOUT ── */
+    #about {
+      background: var(--off-white);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .about-right {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      padding-top: 0.5rem;
+    }
+
+    .founder-card {
+      background: var(--white);
+      border: 1px solid rgba(10,15,30,0.08);
+      padding: 1.5rem;
+    }
+
+    .founder-initial {
+      font-family: var(--serif);
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 0.65rem;
+    }
+
+    .founder-name {
+      font-weight: 600;
+      font-size: 0.88rem;
+      color: var(--navy-deep);
+      margin-bottom: 0.2rem;
+    }
+
+    .founder-role {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      margin-bottom: 0.85rem;
+      letter-spacing: 0.03em;
+    }
+
+    .founder-desc {
+      font-size: 0.83rem;
+      line-height: 1.65;
+      color: var(--text-muted);
+    }
+
+    .about-thesis {
+      background: var(--navy-deep);
+      padding: 1.65rem;
+      grid-column: 1 / -1;
+    }
+
+    .about-thesis p {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 1rem;
+      color: rgba(255,255,255,0.8);
+      line-height: 1.65;
+    }
+
+    .about-thesis p span { color: var(--gold); font-style: normal; font-weight: 600; }
+
+    /* ── SERVICES ── */
+    #services { background: var(--navy-mid); }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5px;
+      margin-top: 3rem;
+      background: rgba(200,169,110,0.15);
+    }
+
+    .service-card {
+      background: var(--navy-deep);
+      padding: 2.25rem 1.75rem;
+      position: relative;
+      transition: background 0.25s;
+    }
+    .service-card:hover { background: #111827; }
+
+    .service-number {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--gold);
+      letter-spacing: 0.15em;
+      margin-bottom: 1.25rem;
+    }
+
+    .service-icon {
+      width: 34px;
+      height: 34px;
+      margin-bottom: 1.1rem;
+      opacity: 0.9;
+    }
+
+    .service-name {
+      font-family: var(--serif);
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 0.75rem;
+      line-height: 1.25;
+    }
+
+    .service-desc {
+      font-size: 0.83rem;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 1.35rem;
+    }
+
+    .service-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+    }
+
+    .tag {
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.55rem;
+      border: 1px solid rgba(200,169,110,0.3);
+      color: var(--gold);
+    }
+
+    /* ── RESULTS ── */
+    #results { background: var(--off-white); }
+
+    .results-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .result-item {
+      border-top: 2px solid var(--gold);
+      padding-top: 1.35rem;
+    }
+
+    .result-metric {
+      font-family: var(--mono);
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 600;
+      color: var(--navy-deep);
+      line-height: 1;
+      margin-bottom: 0.45rem;
+    }
+
+    .result-label {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--navy-deep);
+      margin-bottom: 0.45rem;
+    }
+
+    .result-desc {
+      font-size: 0.8rem;
+      line-height: 1.65;
+      color: var(--text-muted);
+    }
+
+    /* ── APPROACH ── */
+    #approach { background: var(--navy-deep); }
+
+    .approach-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      margin-top: 3rem;
+      border-top: 1px solid rgba(200,169,110,0.2);
+    }
+
+    .approach-step {
+      padding: 1.75rem 1.25rem;
+      border-right: 1px solid rgba(200,169,110,0.12);
+    }
+    .approach-step:first-child { padding-left: 0; }
+    .approach-step:last-child { border-right: none; }
+
+    .step-num {
+      font-family: var(--mono);
+      font-size: 0.66rem;
+      color: var(--gold);
+      letter-spacing: 0.15em;
+      margin-bottom: 0.85rem;
+    }
+
+    .step-title {
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      color: var(--white);
+      margin-bottom: 0.65rem;
+    }
+
+    .step-desc {
+      font-size: 0.8rem;
+      line-height: 1.65;
+      color: rgba(255,255,255,0.45);
+    }
+
+    /* ── ARTICLES ── */
+    #articles { background: var(--off-white); }
+
+    .articles-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 3rem;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .articles-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5px;
+      background: rgba(10,15,30,0.08);
+    }
+
+    .article-card {
+      background: var(--white);
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      transition: background 0.2s;
+      text-decoration: none;
+      color: inherit;
+    }
+    .article-card:hover { background: #fafaf7; }
+    .article-card:hover .article-arrow { transform: translate(3px, -3px); }
+
+    .article-thumb {
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .article-thumb-fp  { background: linear-gradient(135deg, #0A0F1E 60%, #1B2A4A); }
+    .article-thumb-bi  { background: linear-gradient(135deg, #1B2A4A 40%, #0A0F1E); }
+    .article-thumb-de  { background: linear-gradient(135deg, #0d1628 50%, #1a2d50); }
+
+    .article-thumb svg { opacity: 0.9; }
+
+    .article-body {
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .article-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 1rem;
+    }
+
+    .article-tag {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid rgba(200,169,110,0.4);
+      padding: 0.15rem 0.55rem;
+    }
+
+    .article-date {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      font-family: var(--mono);
+    }
+
+    .article-title {
+      font-family: var(--serif);
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--navy-deep);
+      line-height: 1.3;
+      margin-bottom: 0.75rem;
+    }
+
+    .article-excerpt {
+      font-size: 0.83rem;
+      line-height: 1.7;
+      color: var(--text-muted);
+      flex: 1;
+      margin-bottom: 1.25rem;
+    }
+
+    .article-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(10,15,30,0.06);
+    }
+
+    .article-author {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--navy-deep);
+    }
+
+    .article-arrow {
+      font-size: 1rem;
+      color: var(--gold);
+      transition: transform 0.2s;
+    }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--navy-deep); }
+
+    #contact .section-eyebrow { color: var(--gold); }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 4rem;
+      margin-top: 2.5rem;
+    }
+
+    .contact-info p {
+      font-size: 0.9rem;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 2rem;
+    }
+
+    .contact-detail {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .contact-detail a {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.65);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .contact-detail a:hover { color: var(--gold); }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.85rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .form-group label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      font-family: var(--sans);
+      font-size: 0.88rem;
+      padding: 0.75rem 1rem;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: var(--white);
+      outline: none;
+      transition: border-color 0.2s;
+      width: 100%;
+      resize: vertical;
+      -webkit-appearance: none;
+      border-radius: 0;
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: rgba(255,255,255,0.25); }
+
+    .form-group select option { background: var(--navy-deep); color: var(--white); }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-color: var(--gold);
+    }
+
+    .form-group textarea { min-height: 110px; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #060A14;
+      padding: 2rem 5vw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid rgba(200,169,110,0.1);
+      gap: 1rem;
+    }
+
+    .footer-logo {
+      font-family: var(--serif);
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.45);
+    }
+    .footer-logo span { color: var(--gold); }
+
+    .footer-copy {
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.25);
+    }
+
+    /* ── HIDDEN / VISIBLE ── */
+    [data-lang] { display: none; }
+    [data-lang].visible { display: block; }
+    [data-lang-inline] { display: none; }
+    [data-lang-inline].visible { display: inline; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .approach-steps { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 900px) {
+      #about { grid-template-columns: 1fr; gap: 2.5rem; }
+      .about-right { grid-template-columns: 1fr 1fr; }
+      .services-grid { grid-template-columns: 1fr; }
+      .results-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+      .articles-grid { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+      footer { flex-direction: column; text-align: center; }
+    }
+
+    @media (max-width: 640px) {
+      section { padding: 4rem 5vw; }
+
+      #hero {
+        padding: 80px 5vw 4rem;
+        min-height: 100svh;
+        justify-content: center;
+      }
+
+      .hero-scroll-hint { display: none; }
+
+      .about-right { grid-template-columns: 1fr; }
+
+      .approach-steps {
+        grid-template-columns: 1fr;
+        border-top: none;
+      }
+      .approach-step {
+        border-right: none;
+        border-top: 1px solid rgba(200,169,110,0.12);
+        padding: 1.5rem 0;
+      }
+      .approach-step:first-child { padding-left: 0; border-top: 1px solid rgba(200,169,110,0.2); }
+
+      .form-row { grid-template-columns: 1fr; }
+
+      .hero-cta-row { flex-direction: column; }
+      .btn-primary, .btn-secondary { text-align: center; }
+
+      .articles-header { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+      .articles-header .btn-secondary { font-size: 0.75rem; padding: 0.65rem 1.25rem; }
+
+      .article-thumb { height: 140px; }
+    }
+
+    /* Tap targets mobile */
+    @media (hover: none) {
+      .service-card:hover { background: var(--navy-deep); }
+      .article-card:hover .article-arrow { transform: none; }
+    }
+
+    /* ── Reduced motion ── */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition: none !important; }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#hero" class="nav-logo">C<span>&</span>P</a>
+    <div class="nav-right">
+      <ul class="nav-links">
+        <li><a href="#about"    data-nav="about"></a></li>
+        <li><a href="#services" data-nav="services"></a></li>
+        <li><a href="#results"  data-nav="results"></a></li>
+        <li><a href="#articles" data-nav="articles"></a></li>
+        <li><a href="#contact"  data-nav="contact"></a></li>
+      </ul>
+      <div class="lang-toggle">
+        <button class="lang-btn active" data-set-lang="en">EN</button>
+        <button class="lang-btn" data-set-lang="it">IT</button>
+      </div>
+      <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MOBILE DRAWER -->
+  <div class="nav-drawer" id="drawer">
+    <a href="#about"    data-drawer-nav="about"    onclick="closeDrawer()"></a>
+    <a href="#services" data-drawer-nav="services"  onclick="closeDrawer()"></a>
+    <a href="#results"  data-drawer-nav="results"   onclick="closeDrawer()"></a>
+    <a href="#articles" data-drawer-nav="articles"  onclick="closeDrawer()"></a>
+    <a href="#contact"  data-drawer-nav="contact"   onclick="closeDrawer()"></a>
+  </div>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-bg-grid"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Boutique Management Consulting</p>
+      <h1 class="hero-title">Crema &amp; Pizzolon<br>Consulting</h1>
+      <div class="hero-rule"></div>
+      <p class="hero-payoff">
+        <span data-lang="en" class="visible">From raw data to strategic decisions.<br>One firm. Two disciplines. No guesswork.</span>
+        <span data-lang="it">Dai dati alle decisioni strategiche.<br>Una firm. Due discipline. Zero improvvisazione.</span>
+      </p>
+      <div class="hero-cta-row">
+        <a href="#contact" class="btn-primary">
+          <span data-lang-inline="en" class="visible">Get in Touch</span>
+          <span data-lang-inline="it">Contattaci</span>
+        </a>
+        <a href="#services" class="btn-secondary">
+          <span data-lang-inline="en" class="visible">Our Services</span>
+          <span data-lang-inline="it">I Nostri Servizi</span>
+        </a>
+      </div>
+    </div>
+    <div class="hero-scroll-hint">
+      <span data-lang-inline="en" class="visible">Scroll</span>
+      <span data-lang-inline="it">Scorri</span>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="about-left">
+      <p class="section-eyebrow">
+        <span data-lang-inline="en" class="visible">The Firm</span>
+        <span data-lang-inline="it">La Firm</span>
+      </p>
+      <h2 class="section-title">
+        <span data-lang="en" class="visible">Finance meets<br>quantitative science.</span>
+        <span data-lang="it">La finanza incontra<br>la scienza quantitativa.</span>
+      </h2>
+      <p class="section-body">
+        <span data-lang="en" class="visible">Most SMEs sit on underutilized data. Most consultants offer advice without the tools to implement it. We bridge that gap — combining rigorous financial planning with end-to-end data engineering and modelling to deliver decisions you can act on.</span>
+        <span data-lang="it">La maggior parte delle PMI dispone di dati sottoutilizzati. La maggior parte dei consulenti offre consigli senza gli strumenti per metterli in pratica. Noi colmiamo questo divario — unendo la pianificazione finanziaria rigorosa con la data engineering e la modellazione quantitativa, per produrre decisioni su cui agire concretamente.</span>
+      </p>
+    </div>
+    <div class="about-right">
+      <div class="founder-card">
+        <div class="founder-initial">EC</div>
+        <div class="founder-name">Edoardo Crema</div>
+        <div class="founder-role">
+          <span data-lang-inline="en" class="visible">Data & Analytics</span>
+          <span data-lang-inline="it">Dati & Analytics</span>
+        </div>
+        <p class="founder-desc">
+          <span data-lang="en" class="visible">Analytics Consultant with 4+ years building quantitative models and data pipelines in production. Background in management engineering and philosophy. Specialist in Monte Carlo simulation, ODE-based process modelling, and BI deployment.</span>
+          <span data-lang="it">Analytics Consultant con oltre 4 anni di esperienza nella costruzione di modelli quantitativi e pipeline dati in produzione. Background in ingegneria gestionale e filosofia. Specialista in simulazioni Monte Carlo, modellazione ODE e deploy di sistemi BI.</span>
+        </p>
+      </div>
+      <div class="founder-card">
+        <div class="founder-initial">GP</div>
+        <div class="founder-name">G. Pizzolon</div>
+        <div class="founder-role">
+          <span data-lang-inline="en" class="visible">FP&A & Financial Strategy</span>
+          <span data-lang-inline="it">FP&A & Strategia Finanziaria</span>
+        </div>
+        <p class="founder-desc">
+          <span data-lang="en" class="visible">Senior FP&A professional with experience at top-tier organizations in the United States. Expert in budgeting, financial modelling, variance analysis, and translating financial intelligence into strategic direction for management teams.</span>
+          <span data-lang="it">Professionista senior di FP&A con esperienza in organizzazioni di primo livello negli Stati Uniti. Esperto in budgeting, modellazione finanziaria, variance analysis e nella traduzione dell'intelligenza finanziaria in indirizzi strategici per il management.</span>
+        </p>
+      </div>
+      <div class="about-thesis">
+        <p>
+          <span data-lang="en" class="visible"><span>"</span>Finance without data is intuition. Data without finance is noise. We deliver both — so your decisions rest on something solid.<span>"</span></span>
+          <span data-lang="it"><span>"</span>La finanza senza i dati è intuizione. I dati senza la finanza sono rumore. Noi li integriamo — perché le tue decisioni poggino su basi solide.<span>"</span></span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <p class="section-eyebrow">
+      <span data-lang-inline="en" class="visible">What We Do</span>
+      <span data-lang-inline="it">Cosa Facciamo</span>
+    </p>
+    <h2 class="section-title light">
+      <span data-lang="en" class="visible">Three practices.<br>One integrated offering.</span>
+      <span data-lang="it">Tre practice.<br>Un'offerta integrata.</span>
+    </h2>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-number">01</div>
+        <svg class="service-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="4" y="20" width="6" height="12" fill="#C8A96E" opacity="0.8"/>
+          <rect x="15" y="12" width="6" height="20" fill="#C8A96E"/>
+          <rect x="26" y="4" width="6" height="28" fill="#C8A96E" opacity="0.5"/>
+          <line x1="4" y1="24" x2="32" y2="8" stroke="#C8A96E" stroke-width="1.5" stroke-dasharray="3 2"/>
+        </svg>
+        <h3 class="service-name">
+          <span data-lang="en" class="visible">FP&A &<br>Management Control</span>
+          <span data-lang="it">FP&A &<br>Controllo di Gestione</span>
+        </h3>
+        <p class="service-desc">
+          <span data-lang="en" class="visible">We design and implement financial planning and analysis systems for SMEs that need more than a spreadsheet. From P&L by project to full budget-to-actual cycles, we give management the financial clarity to decide with confidence.</span>
+          <span data-lang="it">Progettiamo e implementiamo sistemi di pianificazione finanziaria per PMI che hanno bisogno di qualcosa di più di un foglio Excel. Dal P&L per commessa ai cicli budget-consuntivo completi, offriamo al management la chiarezza finanziaria per decidere con sicurezza.</span>
+        </p>
+        <div class="service-tags">
+          <span class="tag">Budgeting</span>
+          <span class="tag">Forecasting</span>
+          <span class="tag">Variance Analysis</span>
+          <span class="tag">P&L Design</span>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-number">02</div>
+        <svg class="service-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="3" y="3" width="14" height="14" rx="1" stroke="#C8A96E" stroke-width="1.5"/>
+          <rect x="19" y="3" width="14" height="6" rx="1" stroke="#C8A96E" stroke-width="1.5"/>
+          <rect x="19" y="13" width="14" height="4" rx="1" fill="#C8A96E" opacity="0.5"/>
+          <rect x="3" y="21" width="30" height="12" rx="1" stroke="#C8A96E" stroke-width="1.5"/>
+          <line x1="9" y1="27" x2="9" y2="29" stroke="#C8A96E" stroke-width="2"/>
+          <line x1="15" y1="25" x2="15" y2="29" stroke="#C8A96E" stroke-width="2"/>
+          <line x1="21" y1="26" x2="21" y2="29" stroke="#C8A96E" stroke-width="2"/>
+          <line x1="27" y1="24" x2="27" y2="29" stroke="#C8A96E" stroke-width="2"/>
+        </svg>
+        <h3 class="service-name">
+          <span data-lang="en" class="visible">Business Intelligence<br>& Dashboarding</span>
+          <span data-lang="it">Business Intelligence<br>& Dashboarding</span>
+        </h3>
+        <p class="service-desc">
+          <span data-lang="en" class="visible">We build KPI dashboards and reporting infrastructure that management actually uses — connected to your real data sources, updated automatically, and designed to surface the right signal at the right time.</span>
+          <span data-lang="it">Costruiamo dashboard KPI e infrastrutture di reporting che il management usa davvero — collegate alle vostre fonti dati reali, aggiornate automaticamente e progettate per far emergere il segnale giusto al momento giusto.</span>
+        </p>
+        <div class="service-tags">
+          <span class="tag">Power BI</span>
+          <span class="tag">Superset</span>
+          <span class="tag">Looker</span>
+          <span class="tag">KPI Design</span>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-number">03</div>
+        <svg class="service-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="18" cy="9" rx="12" ry="4" stroke="#C8A96E" stroke-width="1.5"/>
+          <path d="M6 9v9c0 2.21 5.37 4 12 4s12-1.79 12-4V9" stroke="#C8A96E" stroke-width="1.5"/>
+          <path d="M6 18v9c0 2.21 5.37 4 12 4s12-1.79 12-4v-9" stroke="#C8A96E" stroke-width="1.5"/>
+          <circle cx="18" cy="9" r="2" fill="#C8A96E"/>
+        </svg>
+        <h3 class="service-name">
+          <span data-lang="en" class="visible">Data Engineering,<br>Analysis & Science</span>
+          <span data-lang="it">Data Engineering,<br>Analysis & Science</span>
+        </h3>
+        <p class="service-desc">
+          <span data-lang="en" class="visible">From fragmented source systems to a unified data layer. We design ETL pipelines, build predictive models, and deploy quantitative tools — Monte Carlo simulations, logistic regression, churn prediction — that drive real operational decisions.</span>
+          <span data-lang="it">Da sistemi sorgente frammentati a un unico layer dati integrato. Progettiamo pipeline ETL, costruiamo modelli predittivi e distribuiamo strumenti quantitativi — simulazioni Monte Carlo, regressione logistica, churn prediction — che guidano decisioni operative concrete.</span>
+        </p>
+        <div class="service-tags">
+          <span class="tag">ETL / Pipelines</span>
+          <span class="tag">Predictive Models</span>
+          <span class="tag">Python / SQL</span>
+          <span class="tag">PostgreSQL</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESULTS -->
+  <section id="results">
+    <p class="section-eyebrow">
+      <span data-lang-inline="en" class="visible">Track Record</span>
+      <span data-lang-inline="it">Risultati Misurabili</span>
+    </p>
+    <h2 class="section-title">
+      <span data-lang="en" class="visible">We measure everything.<br>Including our own impact.</span>
+      <span data-lang="it">Misuriamo tutto.<br>Compreso il nostro impatto.</span>
+    </h2>
+    <div class="results-grid">
+      <div class="result-item">
+        <div class="result-metric">−14%</div>
+        <div class="result-label">
+          <span data-lang-inline="en" class="visible">FTE Requirement Reduction</span>
+          <span data-lang-inline="it">Riduzione del Fabbisogno FTE</span>
+        </div>
+        <p class="result-desc">
+          <span data-lang="en" class="visible">Demonstrated via ODE-based operational flow model deployed in production. Enabled workforce reallocation without volume loss.</span>
+          <span data-lang="it">Dimostrata tramite modello ODE dei flussi operativi, oggi in produzione. Ha consentito la riqualificazione del personale senza perdita di volumi.</span>
+        </p>
+      </div>
+      <div class="result-item">
+        <div class="result-metric">−10%</div>
+        <div class="result-label">
+          <span data-lang-inline="en" class="visible">Weekly Reporting Hours</span>
+          <span data-lang-inline="it">Ore di Reporting Settimanale</span>
+        </div>
+        <p class="result-desc">
+          <span data-lang="en" class="visible">End-to-end redesign of a multi-source reporting pipeline. Replaced manual Excel process with automated Python extraction from ERP systems.</span>
+          <span data-lang="it">Riprogettazione end-to-end di una pipeline di reportistica multi-sorgente. Processo manuale in Excel sostituito con estrazione automatica via Python dai gestionali aziendali.</span>
+        </p>
+      </div>
+      <div class="result-item">
+        <div class="result-metric">3 → 1</div>
+        <div class="result-label">
+          <span data-lang-inline="en" class="visible">Data Sources Unified</span>
+          <span data-lang-inline="it">Fonti Dati Unificate</span>
+        </div>
+        <p class="result-desc">
+          <span data-lang="en" class="visible">Designed and implemented ETL pipeline consolidating revenue data from three heterogeneous ERP systems into a single PostgreSQL data layer — the company's first unified dataset.</span>
+          <span data-lang="it">Progettazione e implementazione di pipeline ETL che consolida i dati di fatturato da tre gestionali eterogenei in un unico layer PostgreSQL — il primo dataset unificato aziendale.</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- APPROACH -->
+  <section id="approach">
+    <p class="section-eyebrow">
+      <span data-lang-inline="en" class="visible">Our Method</span>
+      <span data-lang-inline="it">Il Nostro Metodo</span>
+    </p>
+    <h2 class="section-title light">
+      <span data-lang="en" class="visible">From brief to<br>production. Always.</span>
+      <span data-lang="it">Dal brief alla<br>produzione. Sempre.</span>
+    </h2>
+    <div class="approach-steps">
+      <div class="approach-step">
+        <div class="step-num">01</div>
+        <div class="step-title">
+          <span data-lang="en" class="visible">Diagnostic</span>
+          <span data-lang="it">Diagnosi</span>
+        </div>
+        <p class="step-desc">
+          <span data-lang="en" class="visible">We map your data landscape, financial flows, and decision-making pain points. No assumptions — only what's real in your organization.</span>
+          <span data-lang="it">Mappiamo il vostro panorama dati, i flussi finanziari e i colli di bottiglia decisionali. Nessuna assunzione — solo ciò che esiste davvero nella vostra organizzazione.</span>
+        </p>
+      </div>
+      <div class="approach-step">
+        <div class="step-num">02</div>
+        <div class="step-title">
+          <span data-lang="en" class="visible">Design</span>
+          <span data-lang="it">Progettazione</span>
+        </div>
+        <p class="step-desc">
+          <span data-lang="en" class="visible">We design the analytical or financial architecture. Every model, pipeline, or dashboard is built to answer a specific business question.</span>
+          <span data-lang="it">Progettiamo l'architettura analitica o finanziaria. Ogni modello, pipeline o dashboard è costruito per rispondere a una domanda di business specifica.</span>
+        </p>
+      </div>
+      <div class="approach-step">
+        <div class="step-num">03</div>
+        <div class="step-title">
+          <span data-lang="en" class="visible">Build & Deploy</span>
+          <span data-lang="it">Sviluppo & Deploy</span>
+        </div>
+        <p class="step-desc">
+          <span data-lang="en" class="visible">We build and put it in production. Not a prototype, not a PDF deck — a working tool your team can use from day one.</span>
+          <span data-lang="it">Costruiamo e mettiamo in produzione. Non un prototipo, non un deck in PDF — uno strumento funzionante che il vostro team può usare dal primo giorno.</span>
+        </p>
+      </div>
+      <div class="approach-step">
+        <div class="step-num">04</div>
+        <div class="step-title">
+          <span data-lang="en" class="visible">Transfer</span>
+          <span data-lang="it">Trasferimento</span>
+        </div>
+        <p class="step-desc">
+          <span data-lang="en" class="visible">We hand over with documentation and training. The goal is your independence — not your dependency on us.</span>
+          <span data-lang="it">Consegniamo con documentazione e formazione. L'obiettivo è la vostra autonomia — non la dipendenza da noi.</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ARTICLES -->
+  <section id="articles">
+    <div class="articles-header">
+      <div>
+        <p class="section-eyebrow">
+          <span data-lang-inline="en" class="visible">Our Work</span>
+          <span data-lang-inline="it">I Nostri Lavori</span>
+        </p>
+        <h2 class="section-title" style="margin-bottom:0;">
+          <span data-lang="en" class="visible">From the field.</span>
+          <span data-lang="it">Dal campo.</span>
+        </h2>
+      </div>
+      <a href="#contact" class="btn-secondary" style="white-space:nowrap; color: var(--navy-deep); border-color: rgba(10,15,30,0.25);">
+        <span data-lang-inline="en" class="visible">Commission a Project</span>
+        <span data-lang-inline="it">Proponi un Progetto</span>
+      </a>
+    </div>
+
+    <div class="articles-grid">
+
+      <!-- Article 1: ODE Model -->
+      <a class="article-card" href="#contact">
+        <div class="article-thumb article-thumb-fp">
+          <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+            <path d="M10 65 Q25 20 40 35 Q55 50 70 10" stroke="#C8A96E" stroke-width="2" fill="none"/>
+            <path d="M10 65 Q25 20 40 35 Q55 50 70 10" stroke="rgba(200,169,110,0.15)" stroke-width="12" fill="none"/>
+            <circle cx="40" cy="35" r="3" fill="#C8A96E"/>
+            <circle cx="70" cy="10" r="3" fill="#C8A96E" opacity="0.6"/>
+            <line x1="10" y1="10" x2="10" y2="68" stroke="rgba(200,169,110,0.3)" stroke-width="1"/>
+            <line x1="10" y1="68" x2="73" y2="68" stroke="rgba(200,169,110,0.3)" stroke-width="1"/>
+          </svg>
+        </div>
+        <div class="article-body">
+          <div class="article-meta">
+            <span class="article-tag">FP&A</span>
+            <span class="article-date">2024</span>
+          </div>
+          <div class="article-title">
+            <span data-lang="en" class="visible">Modelling operational throughput with ODEs: a −14% FTE case study</span>
+            <span data-lang="it">Modellazione del throughput operativo con ODE: un caso reale con −14% FTE</span>
+          </div>
+          <p class="article-excerpt">
+            <span data-lang="en" class="visible">How we used a system of ordinary differential equations to model patient flow in a diagnostic facility — and surfaced a workforce reallocation opportunity invisible to traditional planning tools.</span>
+            <span data-lang="it">Come abbiamo usato un sistema di equazioni differenziali ordinarie per modellare il flusso pazienti in una struttura diagnostica — portando alla luce un'opportunità di riorganizzazione del personale invisibile agli strumenti di pianificazione tradizionali.</span>
+          </p>
+          <div class="article-footer">
+            <span class="article-author">Edoardo Crema</span>
+            <span class="article-arrow">↗</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Article 2: ETL / Unified Data Layer -->
+      <a class="article-card" href="#contact">
+        <div class="article-thumb article-thumb-de">
+          <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+            <ellipse cx="40" cy="18" rx="22" ry="7" stroke="#C8A96E" stroke-width="1.5"/>
+            <path d="M18 18v18c0 3.87 9.85 7 22 7s22-3.13 22-7V18" stroke="#C8A96E" stroke-width="1.5"/>
+            <path d="M18 36v18c0 3.87 9.85 7 22 7s22-3.13 22-7V36" stroke="#C8A96E" stroke-width="1.5" opacity="0.5"/>
+            <line x1="40" y1="43" x2="40" y2="56" stroke="#C8A96E" stroke-width="1" stroke-dasharray="2 2"/>
+            <circle cx="40" cy="18" r="3" fill="#C8A96E"/>
+          </svg>
+        </div>
+        <div class="article-body">
+          <div class="article-meta">
+            <span class="article-tag">Data Engineering</span>
+            <span class="article-date">2024</span>
+          </div>
+          <div class="article-title">
+            <span data-lang="en" class="visible">Three ERPs, one truth: building a unified revenue layer for a construction group</span>
+            <span data-lang="it">Tre gestionali, un'unica verità: costruire un layer dati unificato per un gruppo edilizio</span>
+          </div>
+          <p class="article-excerpt">
+            <span data-lang="en" class="visible">A walk-through of the ETL architecture we designed to consolidate heterogeneous invoice data from three source systems into a single PostgreSQL layer — enabling the first reliable group-level P&L in the company's history.</span>
+            <span data-lang="it">Un'analisi dell'architettura ETL progettata per consolidare dati di fatturazione eterogenei da tre sistemi sorgente in un unico layer PostgreSQL — rendendo possibile il primo P&L di gruppo affidabile nella storia dell'azienda.</span>
+          </p>
+          <div class="article-footer">
+            <span class="article-author">Edoardo Crema</span>
+            <span class="article-arrow">↗</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Article 3: FP&A for Startups -->
+      <a class="article-card" href="#contact">
+        <div class="article-thumb article-thumb-bi">
+          <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+            <rect x="12" y="48" width="10" height="22" fill="#C8A96E" opacity="0.7"/>
+            <rect x="30" y="32" width="10" height="38" fill="#C8A96E"/>
+            <rect x="48" y="20" width="10" height="50" fill="#C8A96E" opacity="0.5"/>
+            <rect x="66" y="10" width="10" height="60" fill="#C8A96E" opacity="0.3"/>
+            <polyline points="17,48 35,32 53,20 71,10" stroke="#C8A96E" stroke-width="1.5" fill="none" stroke-dasharray="3 2"/>
+          </svg>
+        </div>
+        <div class="article-body">
+          <div class="article-meta">
+            <span class="article-tag">FP&A</span>
+            <span class="article-date">2025</span>
+          </div>
+          <div class="article-title">
+            <span data-lang="en" class="visible">P&L simulation for a pre-revenue medical diagnostics venture: structure and assumptions</span>
+            <span data-lang="it">Simulazione P&L per una startup diagnostica pre-revenue: struttura e assunzioni</span>
+          </div>
+          <p class="article-excerpt">
+            <span data-lang="en" class="visible">How we structured a Monte Carlo–based financial model for an early-stage medical venture, stress-testing assumptions on patient volume, reimbursement rates, and capex deployment — before a single euro of revenue had been recognized.</span>
+            <span data-lang="it">Come abbiamo strutturato un modello finanziario basato su Monte Carlo per una venture medica in fase iniziale, testando le ipotesi su volumi pazienti, tariffe di rimborso e piano capex — prima che fosse riconosciuto un solo euro di ricavi.</span>
+          </p>
+          <div class="article-footer">
+            <span class="article-author">Edoardo Crema</span>
+            <span class="article-arrow">↗</span>
+          </div>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <p class="section-eyebrow">
+      <span data-lang-inline="en" class="visible">Get in Touch</span>
+      <span data-lang-inline="it">Contatti</span>
+    </p>
+    <h2 class="section-title light">
+      <span data-lang="en" class="visible">Let's talk about<br>your numbers.</span>
+      <span data-lang="it">Parliamo dei<br>vostri numeri.</span>
+    </h2>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <p>
+          <span data-lang="en" class="visible">Whether you're a CFO looking for a quantitative backbone for your planning process, or an operations manager drowning in data that doesn't talk to each other — we'd like to hear from you.</span>
+          <span data-lang="it">Che siate un CFO in cerca di una struttura quantitativa per il processo di pianificazione, o un responsabile operations sommerso da dati che non si parlano — vogliamo sentirvi.</span>
+        </p>
+        <div class="contact-detail">
+          <a href="mailto:edoardo.crema@outlook.it">edoardo.crema@outlook.it</a>
+          <a href="https://github.com/edoardo2496" target="_blank">github.com/edoardo2496</a>
+        </div>
+      </div>
+      <div class="contact-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label>
+              <span data-lang-inline="en" class="visible">First Name</span>
+              <span data-lang-inline="it">Nome</span>
+            </label>
+            <input type="text" autocomplete="given-name" />
+          </div>
+          <div class="form-group">
+            <label>
+              <span data-lang-inline="en" class="visible">Last Name</span>
+              <span data-lang-inline="it">Cognome</span>
+            </label>
+            <input type="text" autocomplete="family-name" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" autocomplete="email" inputmode="email" />
+        </div>
+        <div class="form-group">
+          <label>
+            <span data-lang-inline="en" class="visible">Company</span>
+            <span data-lang-inline="it">Azienda</span>
+          </label>
+          <input type="text" autocomplete="organization" />
+        </div>
+        <div class="form-group">
+          <label>
+            <span data-lang-inline="en" class="visible">Area of Interest</span>
+            <span data-lang-inline="it">Area di Interesse</span>
+          </label>
+          <select>
+            <option value=""></option>
+            <option value="fpa">FP&A / Management Control</option>
+            <option value="bi">Business Intelligence</option>
+            <option value="data">Data Engineering / Science</option>
+            <option value="integrated"></option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>
+            <span data-lang-inline="en" class="visible">Message</span>
+            <span data-lang-inline="it">Messaggio</span>
+          </label>
+          <textarea></textarea>
+        </div>
+        <button type="button" class="btn-primary" style="align-self:flex-start;">
+          <span data-lang-inline="en" class="visible">Send Message</span>
+          <span data-lang-inline="it">Invia Messaggio</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">Crema <span>&</span> Pizzolon Consulting</div>
+    <div class="footer-copy">
+      <span data-lang-inline="en" class="visible">© 2025 Crema & Pizzolon Consulting. All rights reserved.</span>
+      <span data-lang-inline="it">© 2025 Crema & Pizzolon Consulting. Tutti i diritti riservati.</span>
+    </div>
+  </footer>
+
+  <script>
+    // ── LANGUAGE SYSTEM ──
+    let currentLang = 'en';
+
+    const navLabels = {
+      about:    { en: 'About',    it: 'Chi Siamo' },
+      services: { en: 'Services', it: 'Servizi' },
+      results:  { en: 'Results',  it: 'Risultati' },
+      articles: { en: 'Articles', it: 'Articoli' },
+      contact:  { en: 'Contact',  it: 'Contatti' },
+    };
+
+    function setLang(lang) {
+      currentLang = lang;
+      document.querySelectorAll('[data-lang]').forEach(el => {
+        el.classList.toggle('visible', el.dataset.lang === lang);
+      });
+      document.querySelectorAll('[data-lang-inline]').forEach(el => {
+        el.classList.toggle('visible', el.dataset.langInline === lang);
+      });
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.setLang === lang);
+      });
+      document.documentElement.lang = lang;
+      updateSelectOptions(lang);
+      updateNavLinks(lang);
+    }
+
+    function updateSelectOptions(lang) {
+      const sel = document.querySelector('select');
+      if (!sel) return;
+      const opts = sel.querySelectorAll('option');
+      opts[0].textContent = lang === 'en' ? '— Select —' : '— Seleziona —';
+      opts[4].textContent = lang === 'en' ? 'Integrated Engagement' : 'Progetto Integrato';
+    }
+
+    function updateNavLinks(lang) {
+      document.querySelectorAll('[data-nav]').forEach(a => {
+        const key = a.dataset.nav;
+        if (navLabels[key]) a.textContent = navLabels[key][lang];
+      });
+      document.querySelectorAll('[data-drawer-nav]').forEach(a => {
+        const key = a.dataset.drawerNav;
+        if (navLabels[key]) a.textContent = navLabels[key][lang];
+      });
+    }
+
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.addEventListener('click', () => setLang(btn.dataset.setLang));
+    });
+
+    // ── HAMBURGER ──
+    const hamburger = document.getElementById('hamburger');
+    const drawer = document.getElementById('drawer');
+
+    hamburger.addEventListener('click', () => {
+      const open = drawer.classList.toggle('open');
+      hamburger.classList.toggle('open', open);
+      hamburger.setAttribute('aria-expanded', open);
+    });
+
+    function closeDrawer() {
+      drawer.classList.remove('open');
+      hamburger.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', false);
+    }
+
+    // Close drawer on outside tap
+    document.addEventListener('click', e => {
+      if (!drawer.contains(e.target) && !hamburger.contains(e.target)) {
+        closeDrawer();
+      }
+    });
+
+    // ── INIT ──
+    setLang('en');
+
+    // ── SCROLL REVEAL ──
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.style.opacity = '1';
+          e.target.style.transform = 'translateY(0)';
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.08 });
+
+    document.querySelectorAll('.service-card, .result-item, .approach-step, .founder-card, .article-card').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(18px)';
+      el.style.transition = 'opacity 0.45s ease, transform 0.45s ease';
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>
